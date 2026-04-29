@@ -1,71 +1,124 @@
-const features = [
-  {
-    title: "Gemeinsamer Team-Posteingang",
-    text: "Alle WhatsApp-Nachrichten zentral an einem Ort – mit Zuweisungen, Prioritäten und SLAs.",
+"use client";
+
+import { useMemo, useState } from "react";
+
+type Lang = "de" | "en";
+
+const content = {
+  de: {
+    nav: ["Plattform", "Story", "Branchen", "Für wen", "Kontakt"],
+    badge: "elumalab · WhatsApp Intelligence OS",
+    title: "Jede Kundenanfrage in 10 Sekunden verstehen. Jede Antwort in Minuten liefern.",
+    subtitle:
+      "elumalab verbindet WhatsApp, KI und Teams zu einem Kommunikationssystem, das wie ein Apple-Produkt wirkt: klar, schnell, präzise.",
+    ctaPrimary: "Live Demo starten",
+    ctaSecondary: "Story entdecken",
+    whyTitle: "Warum elumalab heute wichtiger ist denn je",
+    whyText:
+      "Kunden erwarten sofortige Antworten. Unternehmen verlieren täglich Umsatz durch langsame Reaktionszeiten, Tool-Chaos und fehlende Automationen. elumalab orchestriert Vertrieb, Service und Operations in einer Plattform.",
+    audienceTitle: "Für wen ist elumalab?",
+    audiences: ["E-Commerce & D2C", "Immobilien & Beratung", "Kliniken & Praxen", "Lokale Multi-Standort-Teams"],
   },
-  {
-    title: "KI-Assistenz für Antworten",
-    text: "Automatische Antwortvorschläge, Zusammenfassungen und Routing auf Basis des Kundenanliegens.",
+  en: {
+    nav: ["Platform", "Story", "Industries", "Who it's for", "Contact"],
+    badge: "elumalab · WhatsApp Intelligence OS",
+    title: "Understand every customer request in 10 seconds. Ship every answer in minutes.",
+    subtitle:
+      "elumalab combines WhatsApp, AI and teams into one communication system that feels like an Apple product: clear, fast, precise.",
+    ctaPrimary: "Start live demo",
+    ctaSecondary: "Explore story",
+    whyTitle: "Why elumalab matters more than ever",
+    whyText:
+      "Customers expect instant answers. Companies lose revenue every day due to slow response times, tool fragmentation and missing automations. elumalab orchestrates sales, service and operations in one platform.",
+    audienceTitle: "Who is elumalab for?",
+    audiences: ["E-commerce & D2C", "Real estate & advisory", "Clinics & healthcare", "Local multi-location teams"],
   },
-  {
-    title: "Automationen ohne Code",
-    text: "Workflows für Leads, Erinnerungen und Follow-ups in Minuten erstellen.",
-  },
-  {
-    title: "DSGVO- und Audit-Ready",
-    text: "Rollen, Protokolle und Datenkontrollen für sichere Kundenkommunikation in der EU.",
-  },
-];
+};
+
+const pillars = {
+  de: [
+    ["Inbox OS", "Alle Konversationen in einem intelligenten Feed mit Priorisierung und SLA-Layer."],
+    ["AI Copilot", "Antwortvorschläge, Zusammenfassungen und Intent-Routing auf Knopfdruck."],
+    ["Automation Engine", "No-Code-Flows für Leads, Follow-ups, Termine und Eskalationen."],
+    ["Revenue Analytics", "Messbar: Erstreaktion, Conversion, Kosten pro Abschluss, Team-Performance."],
+  ],
+  en: [
+    ["Inbox OS", "All conversations in one intelligent feed with priority and SLA layers."],
+    ["AI Copilot", "Reply suggestions, summaries and intent routing in one click."],
+    ["Automation Engine", "No-code flows for leads, follow-ups, appointments and escalations."],
+    ["Revenue Analytics", "Measurable outcomes: first response, conversion, cost per closure, team performance."],
+  ],
+};
 
 export default function Home() {
+  const [lang, setLang] = useState<Lang>("de");
+  const t = useMemo(() => content[lang], [lang]);
+
   return (
-    <main className="min-h-screen bg-slate-950 text-slate-100">
-      <section className="mx-auto max-w-6xl px-6 py-16 md:py-24">
-        <p className="mb-4 inline-flex rounded-full border border-cyan-400/40 bg-cyan-400/10 px-3 py-1 text-sm text-cyan-300">
-          elumalab • WhatsApp SaaS Platform
-        </p>
-        <h1 className="max-w-4xl text-4xl font-semibold leading-tight md:text-6xl">
-          Die WhatsApp-Kommunikationsplattform für wachsende Teams.
-        </h1>
-        <p className="mt-6 max-w-3xl text-lg text-slate-300 md:text-xl">
-          Verbinde dein WhatsApp Business mit CRM, Team-Posteingang und KI-Automation. 
-          Ziel: schneller antworten, mehr Leads konvertieren und Servicekosten senken.
-        </p>
+    <main className="relative overflow-hidden bg-[#020617] text-slate-100">
+      <div className="aurora aurora-1" />
+      <div className="aurora aurora-2" />
+      <div className="grid-overlay" />
+
+      <header className="mx-auto flex max-w-6xl items-center justify-between px-6 pt-8">
+        <div className="text-lg font-semibold tracking-wide">elumalab</div>
+        <nav className="hidden gap-7 text-sm text-slate-300 md:flex">
+          {t.nav.map((item) => (
+            <a key={item} href="#" className="transition hover:text-white">{item}</a>
+          ))}
+        </nav>
+        <div className="glass rounded-full p-1">
+          <button onClick={() => setLang("de")} className={`lang-btn ${lang === "de" ? "active" : ""}`}>DE</button>
+          <button onClick={() => setLang("en")} className={`lang-btn ${lang === "en" ? "active" : ""}`}>EN</button>
+        </div>
+      </header>
+
+      <section className="mx-auto max-w-6xl px-6 pb-20 pt-20 md:pt-28">
+        <p className="inline-flex rounded-full border border-cyan-300/50 bg-cyan-500/10 px-4 py-2 text-sm text-cyan-200">{t.badge}</p>
+        <h1 className="mt-8 max-w-5xl text-5xl font-semibold leading-[1.05] tracking-tight md:text-7xl">{t.title}</h1>
+        <p className="mt-8 max-w-3xl text-xl text-slate-300">{t.subtitle}</p>
+
         <div className="mt-10 flex flex-wrap gap-4">
-          <a
-            href="mailto:founders@elumalab.com?subject=Demo%20elumalab"
-            className="rounded-xl bg-cyan-500 px-6 py-3 font-medium text-slate-950 transition hover:bg-cyan-400"
-          >
-            Demo vereinbaren
-          </a>
-          <a
-            href="#roadmap"
-            className="rounded-xl border border-slate-700 px-6 py-3 font-medium transition hover:border-slate-500"
-          >
-            Produkt-Roadmap ansehen
-          </a>
+          <a href="mailto:founders@elumalab.com" className="btn-primary">{t.ctaPrimary}</a>
+          <a href="#story" className="btn-secondary">{t.ctaSecondary}</a>
+        </div>
+
+        <div className="mt-14 rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur-xl md:p-10">
+          <div className="text-sm uppercase tracking-[0.2em] text-cyan-200/80">Live Simulation</div>
+          <div className="mt-4 grid gap-4 md:grid-cols-3">
+            {["Lead from WhatsApp", "AI triages intent", "Auto-routed to sales"].map((step, i) => (
+              <div key={step} className="sim-card">
+                <span className="sim-dot" />
+                <div className="text-sm text-slate-400">0{i + 1}</div>
+                <div className="mt-2 text-lg">{step}</div>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
-      <section className="mx-auto grid max-w-6xl gap-4 px-6 pb-16 md:grid-cols-2">
-        {features.map((feature) => (
-          <article key={feature.title} className="rounded-2xl border border-slate-800 bg-slate-900/60 p-6">
-            <h2 className="text-xl font-medium">{feature.title}</h2>
-            <p className="mt-3 text-slate-300">{feature.text}</p>
+      <section id="story" className="mx-auto grid max-w-6xl gap-8 px-6 pb-20 md:grid-cols-2">
+        <article className="glass rounded-3xl p-8">
+          <h2 className="text-3xl font-medium">{t.whyTitle}</h2>
+          <p className="mt-5 text-slate-300">{t.whyText}</p>
+        </article>
+        <article className="glass rounded-3xl p-8">
+          <h2 className="text-3xl font-medium">{t.audienceTitle}</h2>
+          <ul className="mt-5 space-y-3 text-slate-300">
+            {t.audiences.map((item) => (
+              <li key={item} className="flex items-center gap-3"><span className="h-2 w-2 rounded-full bg-cyan-300" />{item}</li>
+            ))}
+          </ul>
+        </article>
+      </section>
+
+      <section className="mx-auto grid max-w-6xl gap-5 px-6 pb-24 md:grid-cols-2">
+        {pillars[lang].map(([title, desc]) => (
+          <article key={title} className="feature-card">
+            <h3 className="text-2xl font-medium">{title}</h3>
+            <p className="mt-3 text-slate-300">{desc}</p>
           </article>
         ))}
-      </section>
-
-      <section id="roadmap" className="border-y border-slate-800 bg-slate-900/40">
-        <div className="mx-auto max-w-6xl px-6 py-16">
-          <h3 className="text-2xl font-semibold md:text-3xl">MVP-Roadmap (90 Tage)</h3>
-          <ol className="mt-8 grid gap-4 md:grid-cols-2">
-            <li className="rounded-xl border border-slate-800 p-5">Phase 1: Foundation (Architektur, CI/CD, Auth, Tenant-Modell)</li>
-            <li className="rounded-xl border border-slate-800 p-5">Phase 2: WhatsApp Core (Inbox, Kontakte, Team-Workflows)</li>
-            <li className="rounded-xl border border-slate-800 p-5">Phase 3: Automation + Analytics (Rules, Templates, KPI-Dashboard)</li>
-            <li className="rounded-xl border border-slate-800 p-5">Phase 4: Hardening + Beta (Security, DSGVO, Pilotkunden)</li>
-          </ol>
-        </div>
       </section>
     </main>
   );
